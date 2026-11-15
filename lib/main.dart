@@ -30,8 +30,8 @@ class DataVaultApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color(0xFF090B0D),
         colorScheme: const ColorScheme.dark(
-          primary: Color(0xFFB83B38),
-          secondary: Color(0xFFEF7770),
+          primary: Color(0xFF2E8B57),
+          secondary: Color(0xFF55C878),
           surface: Color(0xFF151819),
         ),
         cardTheme: CardThemeData(
@@ -106,57 +106,60 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ],
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Container(
-            constraints: const BoxConstraints(maxWidth: 400),
+      body: SafeArea(
+        top: false,
+        child: Center(
+          child: SingleChildScrollView(
             padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              color: const Color(0xFF151819),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Color(0x477F1D1D),
-                  child: Icon(Icons.lock_person, color: Color(0xFFFCA5A5), size: 30),
-                ),
-                const SizedBox(height: 16),
-                const Text('Buka Ruang Simpan', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                const Text(
-                  'Masukkan nama pengguna lokal Anda. Mendukung penyimpanan Full Offline, Backup Teks JSON, dan Cloud.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 13, color: Colors.white60),
-                ),
-                const SizedBox(height: 24),
-                TextField(
-                  controller: _userController,
-                  decoration: InputDecoration(
-                    labelText: 'Nama Pengguna (Username)',
-                    hintText: 'Contoh: adit, pribadi',
-                    prefixIcon: const Icon(Icons.alternate_email),
-                    filled: true,
-                    fillColor: const Color(0xFF101314),
-                    border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 400),
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: const Color(0xFF151819),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Color(0x332E8B57),
+                    child: Icon(Icons.lock_person, color: Color(0xFF55C878), size: 30),
                   ),
-                  onSubmitted: (_) => _login(),
-                ),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: FilledButton.icon(
-                    onPressed: _login,
-                    icon: const Icon(Icons.arrow_forward),
-                    label: const Text('Masuk ke Vault', style: TextStyle(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 16),
+                  const Text('Buka Ruang Simpan', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'Masukkan nama pengguna lokal Anda. Mendukung penyimpanan Full Offline, Backup Teks JSON, dan Cloud.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 13, color: Colors.white60),
                   ),
-                ),
-              ],
+                  const SizedBox(height: 24),
+                  TextField(
+                    controller: _userController,
+                    decoration: InputDecoration(
+                      labelText: 'Nama Pengguna (Username)',
+                      hintText: 'Contoh: adit, pribadi',
+                      prefixIcon: const Icon(Icons.alternate_email),
+                      filled: true,
+                      fillColor: const Color(0xFF101314),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+                    ),
+                    onSubmitted: (_) => _login(),
+                  ),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 48,
+                    child: FilledButton.icon(
+                      onPressed: _login,
+                      icon: const Icon(Icons.arrow_forward),
+                      label: const Text('Masuk ke Vault', style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -434,16 +437,19 @@ class _VaultDashboardPageState extends State<VaultDashboardPage> {
   void _showBackupMenuModal() {
     showModalBottomSheet(
       context: context,
+      useSafeArea: true,
       backgroundColor: const Color(0xFF151819),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+      builder: (ctx) => SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
             const Text('Backup & Restore (Teks JSON)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 6),
             const Text(
@@ -476,7 +482,8 @@ class _VaultDashboardPageState extends State<VaultDashboardPage> {
                 _showImportTextDialog();
               },
             ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -706,7 +713,7 @@ class _VaultDashboardPageState extends State<VaultDashboardPage> {
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Batal')),
           FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: Colors.redAccent),
+            style: FilledButton.styleFrom(backgroundColor: const Color(0xFF2E8B57)),
             onPressed: () {
               Navigator.pop(ctx);
               _deleteItem(item);
@@ -734,6 +741,7 @@ class _VaultDashboardPageState extends State<VaultDashboardPage> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      useSafeArea: true,
       backgroundColor: const Color(0xFF151819),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -744,7 +752,10 @@ class _VaultDashboardPageState extends State<VaultDashboardPage> {
             left: 20,
             right: 20,
             top: 20,
-            bottom: MediaQuery.of(ctx).viewInsets.bottom + 20,
+            bottom: (MediaQuery.of(ctx).viewInsets.bottom > MediaQuery.of(ctx).viewPadding.bottom
+                    ? MediaQuery.of(ctx).viewInsets.bottom
+                    : MediaQuery.of(ctx).viewPadding.bottom) +
+                20,
           ),
           child: SingleChildScrollView(
             child: Column(
@@ -855,14 +866,14 @@ class _VaultDashboardPageState extends State<VaultDashboardPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text('Data Vault', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-            Text('User: @${widget.username}', style: const TextStyle(fontSize: 12, color: Color(0xFFFCA5A5))),
+            Text('User: @${widget.username}', style: const TextStyle(fontSize: 12, color: Color(0xFF55C878))),
           ],
         ),
         actions: [
           Icon(
             _isOnline ? Icons.wifi : Icons.wifi_off,
             size: 18,
-            color: _isOnline ? Colors.greenAccent : Colors.redAccent,
+            color: _isOnline ? Colors.greenAccent : Colors.white38,
           ),
           IconButton(
             icon: const Icon(Icons.data_object, color: Colors.amber),
@@ -890,14 +901,16 @@ class _VaultDashboardPageState extends State<VaultDashboardPage> {
             onPressed: () => showWorkerSettingsDialog(context, onSaved: _syncWithWorker),
           ),
           IconButton(
-            icon: const Icon(Icons.logout, color: Colors.redAccent),
+            icon: const Icon(Icons.logout, color: Colors.greenAccent),
             tooltip: 'Keluar',
             onPressed: () => _settingsBox.delete('active_user'),
           ),
         ],
       ),
-      body: Column(
-        children: [
+      body: SafeArea(
+        top: false,
+        child: Column(
+          children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
             child: Column(
@@ -1069,7 +1082,7 @@ class _VaultDashboardPageState extends State<VaultDashboardPage> {
                                 ),
                                 const SizedBox(width: 8),
                                 IconButton(
-                                  icon: const Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
+                                  icon: const Icon(Icons.delete_outline, color: Colors.greenAccent, size: 20),
                                   onPressed: () => _confirmDelete(item),
                                 ),
                               ],
@@ -1100,7 +1113,7 @@ class _VaultDashboardPageState extends State<VaultDashboardPage> {
       child: ChoiceChip(
         label: Text(label, style: const TextStyle(fontSize: 12)),
         selected: isSelected,
-        selectedColor: const Color(0xFFB83B38),
+        selectedColor: const Color(0xFF2E8B57),
         onSelected: (_) => setState(() => _selectedCategory = value),
       ),
     );
